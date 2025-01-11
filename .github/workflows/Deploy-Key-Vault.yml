@@ -1,0 +1,37 @@
+name: Deploy Key Vault
+
+on:
+  workflow_dispatch:
+    inputs:
+      resourceGroup:
+        description: 'Resource Group Name'
+        required: true
+        default: 'rg-cloudworkshop'
+
+# Require write permission to Fetch an OIDC token.
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-key-vault:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      
+      - name: Create an Azure Key Vault
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+          template: ./bicep/modules/keyvault.bicep
+          parameters: ./bicep/parameters/keyvault.bicepparam

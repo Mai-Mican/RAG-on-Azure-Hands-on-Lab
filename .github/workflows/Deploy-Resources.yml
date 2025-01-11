@@ -1,0 +1,69 @@
+name: Deploy Hands-on Resources
+
+on:
+  workflow_dispatch:
+    inputs:
+      resourceGroup:
+        description: 'Resource Group Name'
+        required: true
+        default: 'rg-cloudworkshop'
+
+# Require write permission to Fetch an OIDC token.
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      
+      - name: Creating Virtual Network and Network Security Groups
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+          template: ./bicep/modules/virtualnetwork_spoke.bicep
+          parameters: ./bicep/parameters/virtualnetwork_spoke.bicepparam
+      
+      - name: Creating Container Registry and Container Apps
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+          template: ./bicep/templates/container.bicep
+          parameters: ./bicep/parameters/container.bicepparam
+      
+      - name: Creating AI Search and OpenAI Service
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+          template: ./bicep/templates/ai.bicep
+          parameters: ./bicep/parameters/ai.bicepparam
+
+      - name: Creating Azure Storage Account
+        id: create_storage_account
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+          template: ./bicep/modules/storageaccount.bicep
+          parameters: ./bicep/parameters/storageaccount.bicepparam
+      
+      - name: Uploading files to an Azure Storage Account
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az storage blob upload-batch --account-name ${{ steps.create_storage_account.outputs.storageAccountName }} --destination ${{ steps.create_storage_account.outputs.containerName }} --source ./contents

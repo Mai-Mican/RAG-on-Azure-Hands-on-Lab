@@ -1,0 +1,916 @@
+{
+  "package": {},
+  "code": {
+    "parse_groundedness_response.py": {
+      "type": "python",
+      "inputs": {
+        "is_service_available": {
+          "type": [
+            "object"
+          ]
+        },
+        "llm_groundedness_response": {
+          "type": [
+            "object"
+          ]
+        },
+        "batch_response": {
+          "type": [
+            "object"
+          ]
+        }
+      },
+      "source": "parse_groundedness_response.py",
+      "function": "parse_response"
+    },
+    "run_gpt_fluency_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "connection": {
+          "type": [
+            "AzureOpenAIConnection"
+          ]
+        },
+        "deployment_name": {
+          "type": [
+            "object"
+          ]
+        },
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_gpt_fluency_evaluator.py",
+      "function": "run_gpt_fluency_evaluator"
+    },
+    "run_gpt_groundedness_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "connection": {
+          "type": [
+            "AzureOpenAIConnection"
+          ]
+        },
+        "deployment_name": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "context": {
+          "type": [
+            "object"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_gpt_groundedness_evaluator.py",
+      "function": "run_gpt_groundedness_evaluator"
+    },
+    "construct_groundedness_request.py": {
+      "type": "python",
+      "inputs": {
+        "answer": {
+          "type": [
+            "string"
+          ]
+        },
+        "context": {
+          "type": [
+            "string"
+          ]
+        },
+        "question": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "construct_groundedness_request.py",
+      "function": "construct_request"
+    },
+    "run_xpia_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_xpia_evaluator.py",
+      "function": "run_xpia_evaluator"
+    },
+    "call_groundedness_service.py": {
+      "type": "python",
+      "inputs": {
+        "request_body": {
+          "type": [
+            "object"
+          ]
+        }
+      },
+      "source": "call_groundedness_service.py",
+      "function": "call_groundedness_service"
+    },
+    "run_bleu_score_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "ground_truth": {
+          "type": [
+            "string"
+          ]
+        },
+        "answer": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_bleu_score_evaluator.py",
+      "function": "compute_bleu_score"
+    },
+    "run_gleu_score_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "ground_truth": {
+          "type": [
+            "string"
+          ]
+        },
+        "answer": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_gleu_score_evaluator.py",
+      "function": "compute_gleu_score"
+    },
+    "concat_results.py": {
+      "type": "python",
+      "inputs": {
+        "f1_score_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "bleu_score_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "gleu_score_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "meteor_score_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "rouge_score_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "groundedness_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "gpt_coherence_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "gpt_fluency_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "gpt_relevance_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "gpt_similarity_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "hate_unfairness_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "self_harm_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "sexual_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "violence_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "protected_material_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "xpia_results": {
+          "type": [
+            "object"
+          ]
+        },
+        "eci_results": {
+          "type": [
+            "object"
+          ]
+        }
+      },
+      "source": "concat_results.py",
+      "function": "concat_results"
+    },
+    "run_eci_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_eci_evaluator.py",
+      "function": "run_eci_evaluator"
+    },
+    "aggregate_variants_results.py": {
+      "type": "python",
+      "inputs": {
+        "results": {
+          "type": [
+            "object"
+          ]
+        },
+        "selected_metrics": {
+          "type": [
+            "object"
+          ]
+        },
+        "thresholds": {
+          "type": [
+            "object"
+          ]
+        }
+      },
+      "source": "aggregate_variants_results.py",
+      "function": "aggregate_results"
+    },
+    "run_rouge_score_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "rouge_type": {
+          "type": [
+            "string"
+          ]
+        },
+        "ground_truth": {
+          "type": [
+            "string"
+          ]
+        },
+        "answer": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_rouge_score_evaluator.py",
+      "function": "compute_rouge_score"
+    },
+    "run_hate_unfairness_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_hate_unfairness_evaluator.py",
+      "function": "run_hate_unfairness_evaluator"
+    },
+    "run_meteor_score_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "meteor_params": {
+          "type": [
+            "object"
+          ]
+        },
+        "ground_truth": {
+          "type": [
+            "string"
+          ]
+        },
+        "answer": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_meteor_score_evaluator.py",
+      "function": "compute_meteor_score"
+    },
+    "run_self_harm_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_self_harm_evaluator.py",
+      "function": "run_selfharm_evaluator"
+    },
+    "run_gpt_relevance_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "connection": {
+          "type": [
+            "AzureOpenAIConnection"
+          ]
+        },
+        "deployment_name": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "context": {
+          "type": [
+            "object"
+          ]
+        },
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_gpt_relevance_evaluator.py",
+      "function": "run_gpt_relevance_evaluator"
+    },
+    "validate_input.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "string"
+          ]
+        },
+        "answer": {
+          "type": [
+            "string"
+          ]
+        },
+        "context": {
+          "type": [
+            "string"
+          ]
+        },
+        "ground_truth": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "selected_metrics": {
+          "type": [
+            "object"
+          ]
+        }
+      },
+      "source": "validate_input.py",
+      "function": "validate_input"
+    },
+    "select_metrics.py": {
+      "type": "python",
+      "inputs": {
+        "metrics": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "select_metrics.py",
+      "function": "select_metrics"
+    },
+    "generate_answer_if_not_exist.py": {
+      "type": "python",
+      "inputs": {
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "question": {
+          "type": [
+            "string"
+          ]
+        },
+        "context": {
+          "type": [
+            "string"
+          ]
+        },
+        "answer": {
+          "type": [
+            "string"
+          ]
+        },
+        "connection": {
+          "type": [
+            "AzureOpenAIConnection",
+            "CustomConnection"
+          ]
+        },
+        "deployment_name": {
+          "type": [
+            "string"
+          ]
+        },
+        "model_prompt": {
+          "type": [
+            "object"
+          ],
+          "default": "{}"
+        },
+        "endpoint_url": {
+          "type": [
+            "string"
+          ],
+          "default": ""
+        }
+      },
+      "source": "generate_answer_if_not_exist.py",
+      "function": "generate_answer_if_not_exist"
+    },
+    "run_violence_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_violence_evaluator.py",
+      "function": "run_violence_evaluator"
+    },
+    "f1_score.py": {
+      "type": "python",
+      "inputs": {
+        "ground_truth": {
+          "type": [
+            "string"
+          ]
+        },
+        "answer": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "f1_score.py",
+      "function": "compute_f1_score"
+    },
+    "run_sexual_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_sexual_evaluator.py",
+      "function": "run_sexual_evaluator"
+    },
+    "run_protected_material_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_protected_material_evaluator.py",
+      "function": "run_protected_content_evaluator"
+    },
+    "run_gpt_coherence_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "connection": {
+          "type": [
+            "AzureOpenAIConnection"
+          ]
+        },
+        "deployment_name": {
+          "type": [
+            "object"
+          ]
+        },
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_gpt_coherence_evaluator.py",
+      "function": "run_gpt_coherence_evaluator"
+    },
+    "validate_groundedness_service.py": {
+      "type": "python",
+      "inputs": {
+        "selected_metrics": {
+          "type": [
+            "object"
+          ]
+        },
+        "validated_input": {
+          "type": [
+            "object"
+          ]
+        },
+        "flight": {
+          "type": [
+            "string"
+          ],
+          "default": "true"
+        }
+      },
+      "source": "validate_groundedness_service.py",
+      "function": "validate_safety_metric_input"
+    },
+    "run_gpt_similarity_evaluator.py": {
+      "type": "python",
+      "inputs": {
+        "connection": {
+          "type": [
+            "AzureOpenAIConnection"
+          ]
+        },
+        "deployment_name": {
+          "type": [
+            "object"
+          ]
+        },
+        "question": {
+          "type": [
+            "object"
+          ]
+        },
+        "answer": {
+          "type": [
+            "object"
+          ]
+        },
+        "ground_truth": {
+          "type": [
+            "object"
+          ]
+        },
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "response": {
+          "type": [
+            "string"
+          ]
+        },
+        "use_qr": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "run_gpt_similarity_evaluator.py",
+      "function": "run_gpt_similarity"
+    }
+  }
+}

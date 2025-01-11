@@ -1,0 +1,66 @@
+name: Build and Push Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      resourceGroup:
+        description: 'Resource Group Name'
+        required: true
+        default: 'rg-cloudworkshop'
+      acrName:
+        description: 'Container Registry Name'
+        required: true
+        default: 'acrmcwfy25q2g1'
+      acrUsername:
+        description: 'Container Registry Username'
+        required: true
+        default: 'acrmcwfy25q2g1'
+      acrPassword:
+        description: 'Container Registry Password'
+        required: true
+        default: 'xxxxxxxxxxxxxx'
+      language:
+        description: 'Language'
+        required: true
+        default: 'csharp'
+        type: choice
+        options:
+          - csharp
+          - python
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    
+      - name: Log in to Azure Container Registry
+        uses: azure/docker-login@v2
+        with:
+          login-server: ${{ inputs.acrName }}.azurecr.io
+          username: ${{ inputs.acrUsername }}
+          password: ${{ inputs.acrPassword }}
+
+      - name: Set working directory
+        id: set-working-directory
+        run: echo "##[set-output name=working-directory;]${{ github.event.inputs.language == 'python' && 'app/python/simple' || 'app/csharp/simple' }}"
+  
+
+      - name: Build and push Docker image
+        working-directory: ${{ steps.set-working-directory.outputs.working-directory }}
+        run: |
+          az acr build --registry ${{ inputs.acrName }} \
+                           --image rag-api:${{ github.sha }} .

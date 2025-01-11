@@ -1,0 +1,219 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Simple API",
+        "description": "API for Cloud Workshop Simple App",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/health": {
+            "get": {
+                "summary": "Get Health",
+                "description": "ヘルスチェックエンドポイント。\n\nReturns:\n    dict: アプリケーションのステータスを含む辞書。",
+                "operationId": "get_health_health_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HealthResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/chat": {
+            "get": {
+                "summary": "Chat Handler",
+                "description": "クエリを処理し、回答を返すチャットエンドポイント。\n\nArgs:\n    query (str): 処理するクエリ文字列。\n\nReturns:\n    dict: クエリに対する回答を含む辞書。",
+                "operationId": "chat_handler_chat_get",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Query"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ChatResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/search/fulltext": {
+            "get": {
+                "summary": "Search Fulltext Handler",
+                "description": "クエリを処理し、書き換え、検索を実行し、回答を生成する\nフルテキスト検索エンドポイント。\n\nArgs:\n    query (str): 処理するクエリ文字列。\n\nReturns:\n    dict: クエリに対する回答を含む辞書。",
+                "operationId": "search_fulltext_handler_search_fulltext_get",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Query"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SearchResponse"
+                                },
+                                "example": {
+                                    "$ref": "#/components/examples/SearchResponseExample"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/search/vector": {
+            "get": {
+                "summary": "Search Vector Handler",
+                "description": "ベクトルを処理し、検索を実行し、回答を生成する\nベクトル検索エンドポイント。\n\nArgs:\n    query (str): 処理するクエリ文字列。\n\nReturns:\n    dict: クエリに対する回答を含む辞書。",
+                "operationId": "search_vector_handler_search_vector_get",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Query"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SearchResponse"
+                                },
+                                "example": {
+                                    "$ref": "#/components/examples/SearchResponseExample"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ChatResponse": {
+                "properties": {
+                    "answer": {
+                        "type": "object",
+                        "title": "Answer"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "answer"
+                ],
+                "title": "ChatResponse",
+                "example": {
+                    "answer": {
+                        "response": "こんにちは！今日はどんなお手伝いができますか？😊",
+                        "user_happiness": 4
+                    }
+                }
+            },
+            "HealthResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string"
+                    }
+                },
+                "required": ["status"]
+            },
+            "SearchResponse": {
+                "type": "object",
+                "properties": {
+                    "summary": {
+                        "type": "string"
+                    },
+                    "additional_info": {
+                        "type": "string"
+                    },
+                    "source": {
+                        "type": "string"
+                    }
+                },
+                "required": ["summary", "additional_info", "source"]
+            }
+        },
+        "examples": {
+            "SearchResponseExample": {
+                "summary": "Azure OpenAI Service は、OpenAI の強力な言語モデル（GPT-4o、GPT-4 Turbo、GPT-3.5-Turbo など）にアクセスできるサービスです。これにより、コンテンツ生成や自然言語処理、翻訳などのタスクに使用できます。また、REST API、Python SDK、Azure OpenAI Studio を通じて接続が可能です。",
+                "additional_info": "Azure OpenAI では、プロンプトと入力候補を利用して、ユーザーが入力したテキストに応じたテキスト出力を生成します。モデルの設定やデプロイは、Azureのインターフェースを利用して行うことができます。",
+                "source": "出典: [Azure OpenAI Service Documentation]"
+            }
+        }
+    }
+}
